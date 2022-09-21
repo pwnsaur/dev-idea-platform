@@ -10,7 +10,7 @@ const PostSchema = new mongoose.Schema({
     required: true,
   },
   author: {
-    id: String,
+    type: String,
     required: true,
   },
 });
