@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import connectionToMongo from "./utils/connection";
+import connectionToMongo from "./utils/connection.js";
 import authRoute from "./routes/authRoutes.js";
 import postRoute from "./routes/postRoutes.js";
 const app = express();

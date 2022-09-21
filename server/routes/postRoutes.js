@@ -1,17 +1,16 @@
 import express from "express";
-import { validateSessionToken } from "../authValidation/authValidation";
+import { validateSessionToken } from "../authValidation/authValidation.js";
 import {
   createPost,
   deletePost,
   getPosts,
   updatePost,
-} from "../controllers/postController";
-import router from "./authRoutes";
+} from "../controllers/postController.js";
 
-const route = express.Router();
+const router = express.Router();
 
 router.post("/create", validateSessionToken, createPost);
-route.get("/get", getPosts);
+router.get("/get", getPosts);
 router.put("/update/:id", validateSessionToken, updatePost);
 router.delete("/delete/:id", validateSessionToken, deletePost);
 
