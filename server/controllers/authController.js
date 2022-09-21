@@ -38,6 +38,7 @@ export const loginUser = async (req, res) => {
       .send("Succesfully logged in!");
   } catch (error) {
     console.error(error);
+    res.status(400).send(error);
   }
 };
 
@@ -49,5 +50,6 @@ export const logoutUser = (req, res) => {
       .send("Successfully logged out");
   } catch (error) {
     console.error(error);
+    res.status(400).sent(error);
   }
 };
