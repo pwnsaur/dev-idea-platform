@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import userModel from "../models/userModel";
+import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 import { set } from "mongoose";
 
