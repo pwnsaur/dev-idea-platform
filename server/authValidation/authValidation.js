@@ -1,7 +1,9 @@
 import jwt from "jsonwebtoken";
+import postModel from "../models/postModel.js";
 
-const validateUser = (req, res, next) => {
-  if (req.user.id === req.params.id) {
+const validateUser = async (req, res, next) => {
+  const post = await postModel.findById(req.params.id);
+  if (req.user.id === post.author) {
     next();
   } else {
     return res.status(406).send("You don't have necessary access");
@@ -9,7 +11,7 @@ const validateUser = (req, res, next) => {
 };
 
 export const validateSessionToken = (req, res, next) => {
-  const token = req.cookie.session_token;
+  const token = req.cookies.session_token;
   if (!token) {
     return res.status(401).send("Not authorized!");
   }
@@ -18,6 +20,10 @@ export const validateSessionToken = (req, res, next) => {
       return res.status(404).send("Token is invalid!");
     }
     req.user = decoded;
-    validateUser(req, res, next);
+    // console.log(req.route.path);
+    if (req.route.path !== "/create") {
+      return await validateUser(req, res, next);
+    }
+    next();
   });
 };

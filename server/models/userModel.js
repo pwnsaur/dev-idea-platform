@@ -22,7 +22,7 @@ const UserSchema = new mongoose.Schema({
   surname: {
     type: String,
   },
-  posts: [{ id: String }],
+  posts: [String],
 });
 
 export default mongoose.model("User", UserSchema);
