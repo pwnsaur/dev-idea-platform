@@ -1,8 +1,12 @@
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import * as Pages from './pages/index';
 import * as Components from './components/index';
+import { useState } from 'react';
 
 const App = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [user, setUser] = useState('');
+
   return (
     <BrowserRouter>
       <div className='container'>
@@ -11,6 +15,7 @@ const App = () => {
             <Route index element={<Pages.Home />} />
             <Route path='dashboard' element={<Pages.Dashboard />} />
             <Route path='write' element={<Pages.Write />} />
+            <Route path='login' element={<Pages.Login setUser={setUser} />} />
           </Route>
         </Routes>
       </div>

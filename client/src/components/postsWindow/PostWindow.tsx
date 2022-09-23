@@ -1,4 +1,4 @@
-import './postWindow.scss';
+import styles from './postWindow.module.scss';
 import PostContainer from '../postContainer/PostContainer';
 import data from '../../posts.json';
 
@@ -7,19 +7,26 @@ import data from '../../posts.json';
 //   user: string;
 //   title: string;
 //   body: string;
+//   date: string;
 // };
 
 const PostWindow: React.FC = () => {
   console.log(data);
 
   return (
-    <div className='post-window'>
+    <div className={styles.postWindow}>
       <div>post window</div>
       {data.map(post => (
-        <PostContainer key={post.id}>
-          <h3>{post.title}</h3>
+        <PostContainer
+          key={post.id}
+          title={post.title}
+          body={post.body}
+          author={post.user}
+          date={post.date}
+        />
+        /* <h3>{post.title}</h3>
           <p>{post.body}</p>
-        </PostContainer>
+        </PostContainer> */
       ))}
     </div>
   );
