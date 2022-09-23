@@ -1,7 +1,6 @@
 import userModel from "../models/userModel.js";
 // import { ValidateFn } from "mongoose";
 
-
 export const getUsers = async (req, res) => {
   try {
     const users = await userModel.find({}, { password: 0 });
@@ -15,7 +14,8 @@ export const getUsers = async (req, res) => {
 export const updateUser = async (req, res) => {
   try {
     const { password, username, posts, ...data } = req.body;
-    userModel.findByIdAndUpdate(req.params.id, { $set: { ...data } });
+    await userModel.findByIdAndUpdate(req.params.id, { $set: { ...data } });
+    res.status(200).send("Successfully updated user");
   } catch (error) {
     console.error(error);
     res.status(400).send(error);
