@@ -3,14 +3,14 @@ import * as Components from './components/index';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import { useState } from 'react';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import PostContextProvider from './contexts/PostContext';
+import PostsContextProvider from './contexts/PostContext';
 
 const App = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [user, setUser] = useState('');
 
   return (
-    <PostContextProvider>
+    <PostsContextProvider>
       <BrowserRouter>
         <div className='container'>
           <Routes>
@@ -23,7 +23,7 @@ const App = () => {
           </Routes>
         </div>
       </BrowserRouter>
-    </PostContextProvider>
+    </PostsContextProvider>
   );
 };
 

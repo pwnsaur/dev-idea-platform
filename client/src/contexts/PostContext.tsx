@@ -1,24 +1,38 @@
-import React, { createContext, useState } from 'react';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { IPost } from '../interfaces/post';
-import data from '../posts.json';
+import { createContext, useState } from "react";
 
-interface Posts {
-  posts?: IPost[];
-  children?: React.ReactNode;
+interface Post {
+  title: String;
+  content: String;
+  author: String;
 }
 
-export const PostContext = createContext<Posts | null>(null);
+type PostsContextObj = {
+  items: Post[];
+  addPost: (posts: Post[]) => void;
+};
 
-const PostContextProvider: React.FC<Posts> = ({ children }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [posts, setPosts] = useState(data);
-
-  console.log(data);
-
+export const PostsContext = createContext<PostsContextObj>({
+  items: [],
+  addPost: (posts: Post[]) => {},
+});
+type Props = { children: React.ReactNode };
+const PostsContextProvider: React.FC<Props> = (props) => {
+  const [posts, setPosts] = useState<Post[]>([]);
+  const addPostHandler = (posts: Post[]) => {
+    const newPosts: Post[] = posts;
+    setPosts((prevPosts) => {
+      return (prevPosts = [...prevPosts, ...newPosts]);
+    });
+  };
+  const contextValue: PostsContextObj = {
+    items: posts,
+    addPost: addPostHandler,
+  };
   return (
-    <PostContext.Provider value={{ posts }}>{children}</PostContext.Provider>
+    <PostsContext.Provider value={contextValue}>
+      {props.children}
+    </PostsContext.Provider>
   );
 };
 
-export default PostContextProvider;
+export default PostsContextProvider;
