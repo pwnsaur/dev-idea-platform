@@ -4,9 +4,10 @@ import { PostContext } from '../../contexts/PostContext';
 import styles from './postWindow.module.scss';
 import PostContainer from '../postContainer/PostContainer';
 import data from '../../posts.json';
+import { IPost } from '../../interfaces/post';
 
 const PostWindow: React.FC = () => {
-  // const { posts } = useContext(PostContext);
+  const posts = useContext(PostContext);
 
   return (
     <div className={styles.postWindow}>

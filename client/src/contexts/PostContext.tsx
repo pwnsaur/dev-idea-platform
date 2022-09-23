@@ -3,14 +3,15 @@ import React, { createContext, useState } from 'react';
 import { IPost } from '../interfaces/post';
 import data from '../posts.json';
 
-interface Posts {
+type IPostContext = {
   posts?: IPost[];
   children?: React.ReactNode;
-}
+};
 
-export const PostContext = createContext<Posts | null>(null);
+export const PostContext = createContext<IPostContext | null>(null);
+// export const PostContext = createContext<IPost[]>(data);
 
-const PostContextProvider: React.FC<Posts> = ({ children }) => {
+const PostContextProvider = ({ children }: IPostContext) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [posts, setPosts] = useState(data);
 
