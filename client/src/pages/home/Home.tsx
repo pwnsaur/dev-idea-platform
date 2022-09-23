@@ -1,9 +1,9 @@
-import './home.scss';
+import styles from './home.module.scss';
 import PostWindow from '../../components/postsWindow/PostWindow';
 
 const Home: React.FC = () => {
   return (
-    <div className='home'>
+    <div className={styles.home}>
       <section className='section'>
         <h2>Homepage</h2>
         <PostWindow />
