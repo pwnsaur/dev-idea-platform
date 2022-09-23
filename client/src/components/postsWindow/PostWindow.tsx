@@ -1,17 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useContext } from 'react';
+import { PostContext } from '../../contexts/PostContext';
 import styles from './postWindow.module.scss';
 import PostContainer from '../postContainer/PostContainer';
 import data from '../../posts.json';
 
-// type Post = {
-//   id: number;
-//   user: string;
-//   title: string;
-//   body: string;
-//   date: string;
-// };
-
 const PostWindow: React.FC = () => {
-  console.log(data);
+  // const { posts } = useContext(PostContext);
 
   return (
     <div className={styles.postWindow}>
@@ -21,12 +16,9 @@ const PostWindow: React.FC = () => {
           key={post.id}
           title={post.title}
           body={post.body}
-          author={post.user}
+          user={post.user}
           date={post.date}
         />
-        /* <h3>{post.title}</h3>
-          <p>{post.body}</p>
-        </PostContainer> */
       ))}
     </div>
   );

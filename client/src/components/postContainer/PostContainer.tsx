@@ -1,18 +1,7 @@
 import styles from './postContainer.module.scss';
+import { IPost } from '../../interfaces/post';
 
-// type Post = {
-//   id: number;
-//   user: string;
-//   title: string;
-//   body: string;
-//   date: string;
-// };
-
-interface Props {
-  title: string;
-  body: string;
-  author: string;
-  date: string;
+interface Props extends IPost {
   children?: React.ReactNode;
 }
 
@@ -20,7 +9,7 @@ const PostContainer: React.FC<Props> = props => {
   return (
     <div className={styles.postContainer}>
       <div className={styles.header}>
-        <span className={styles.author}>{props.author}</span>
+        <span className={styles.author}>{props.user}</span>
         <span className={styles.date}>{props.date}</span>
       </div>
       <h3 className={styles.title}>{props.title}</h3>
