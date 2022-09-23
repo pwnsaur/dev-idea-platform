@@ -3,8 +3,14 @@ import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 import { set } from "mongoose";
 
+const STRONG_PWD_REGEX =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
+
 export const registerUser = async (req, res) => {
   try {
+    if (!STRONG_PWD_REGEX.test(req.body.password)) {
+      return res.status(400).json({ message: "Password must be strong" });
+    }
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
     const newUser = new userModel({
@@ -45,7 +51,7 @@ export const loginUser = async (req, res) => {
 export const logoutUser = (req, res) => {
   try {
     res
-      .clearCookies("session_token")
+      .clearCookie("session_token")
       .status(200)
       .send("Successfully logged out");
   } catch (error) {

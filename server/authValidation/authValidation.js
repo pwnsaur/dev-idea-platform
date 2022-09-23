@@ -1,15 +1,36 @@
 import jwt from "jsonwebtoken";
+import postModel from "../models/postModel.js";
 
-const validateUser = (req, res, next) => {
-  if (req.user.id === req.params.id) {
-    next();
+const midFunc = (req, res, next, id) => {
+  if (req.user.id === id) {
+    console.log("hi");
+    return next();
   } else {
     return res.status(406).send("You don't have necessary access");
   }
 };
 
+const pathMethod = {
+  ["/post"]: async (req, res, next) => {
+    const post = await postModel.findById(req.params.id);
+    midFunc(req, res, next, post.author);
+  },
+  ["/user"]: async (req, res, next) => {
+    midFunc(req, res, next, req.params.id);
+  },
+};
+
+const validateUser = async (req, res, next) => {
+  try {
+    await pathMethod[req.baseUrl](req, res, next);
+  } catch (error) {
+    console.error(error);
+    res.status(400).send(error);
+  }
+};
+
 export const validateSessionToken = (req, res, next) => {
-  const token = req.cookie.session_token;
+  const token = req.cookies.session_token;
   if (!token) {
     return res.status(401).send("Not authorized!");
   }
@@ -18,6 +39,9 @@ export const validateSessionToken = (req, res, next) => {
       return res.status(404).send("Token is invalid!");
     }
     req.user = decoded;
-    validateUser(req, res, next);
+    if (req.route.path !== "/create") {
+      return await validateUser(req, res, next);
+    }
+    next();
   });
 };
