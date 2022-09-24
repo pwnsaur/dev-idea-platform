@@ -4,7 +4,11 @@ import userModel from "../models/userModel.js";
 
 export const createPost = async (req, res) => {
   try {
-    const newPost = new postModel({ ...req.body, author: req.user.id });
+    const newPost = new postModel({
+      ...req.body,
+      author: req.user.id,
+      createdAt: Date(),
+    });
     const user = await userModel.findById(req.user.id);
     user.posts = [...user.posts, newPost._id];
     await user.save();
@@ -31,7 +35,9 @@ export const updatePost = async (req, res) => {
     if (req.body.author) {
       delete req.body.author;
     }
-    await postModel.findByIdAndUpdate(req.params.id, { $set: { ...req.body } });
+    await postModel.findByIdAndUpdate(req.params.id, {
+      $set: { ...req.body, updatedAt: Date() },
+    });
     res.status(200).send("Succesfully updated post!");
   } catch (error) {
     console.error(error);

@@ -4,6 +4,7 @@ const PostSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
+    maxLength: 70,
   },
   content: {
     type: String,
@@ -12,6 +13,13 @@ const PostSchema = new mongoose.Schema({
   author: {
     type: String,
     required: true,
+  },
+  createdAt: {
+    type: Date,
+    immutable: true,
+  },
+  updatedAt: {
+    type: Date,
   },
 });
 
