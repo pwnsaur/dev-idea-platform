@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { useContext} from 'react';
+import React, { useContext } from 'react';
 import { PostsContext } from '../../contexts/PostContext';
 import styles from './postWindow.module.scss';
 import PostContainer from '../postContainer/PostContainer';
@@ -8,19 +8,20 @@ import data from '../../posts.json';
 
 const PostWindow = () => {
   const postCtx = useContext(PostsContext);
-  if (postCtx.items.length > 0) {
-    console.log(postCtx.items);
+  if (postCtx!.items.length > 0) {
+    console.log(postCtx!.items);
   }
   return (
     <div className={styles.postWindow}>
       <div>post window</div>
-      {data.map((post) => (
+      {postCtx!.items.map((post, index) => (
         <PostContainer
-          key={post.id}
+          key={index}
+          _id={post._id}
           title={post.title}
-          body={post.body}
-          user={post.user}
-          date={post.date}
+          content={post.content}
+          author={post.author}
+          createdAt={post.createdAt}
         />
       ))}
     </div>
