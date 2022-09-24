@@ -1,13 +1,5 @@
 import { createContext, useState } from 'react';
-
-interface Post {
-  _id: String;
-  title: String;
-  content: String;
-  author: String;
-  createdAt: Date;
-  updatedAt?: Date;
-}
+import { Post } from '../interfaces/interfaces';
 
 type PostsContextObj = {
   items: Post[];
