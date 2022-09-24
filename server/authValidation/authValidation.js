@@ -3,7 +3,6 @@ import postModel from "../models/postModel.js";
 
 const midFunc = (req, res, next, id) => {
   if (req.user.id === id) {
-    console.log("hi");
     return next();
   } else {
     return res.status(406).send("You don't have necessary access");

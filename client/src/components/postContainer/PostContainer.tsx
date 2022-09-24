@@ -1,6 +1,5 @@
 import styles from './postContainer.module.scss';
 import { IPost } from '../../interfaces/post';
-
 interface Props extends IPost {
   children?: React.ReactNode;
 }
