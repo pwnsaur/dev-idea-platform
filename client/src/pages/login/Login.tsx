@@ -19,13 +19,9 @@ const Login = () => {
       password: password,
     };
     try {
-      const response = await axios.post(
-        'http://localhost:3001/auth/login',
-        data,
-        {
-          withCredentials: true,
-        },
-      );
+      await axios.post('http://localhost:3001/auth/login', data, {
+        withCredentials: true,
+      });
       loginCtx!.setLoggedInStatus(true);
       navigate('/dashboard');
     } catch (error: any) {
