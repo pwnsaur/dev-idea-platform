@@ -1,9 +1,12 @@
-import { createContext, useState } from "react";
+import { createContext, useState } from 'react';
 
 interface Post {
+  _id: String;
   title: String;
   content: String;
   author: String;
+  createdAt: Date;
+  updatedAt?: Date;
 }
 
 type PostsContextObj = {
