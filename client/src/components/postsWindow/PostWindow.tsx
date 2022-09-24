@@ -8,13 +8,13 @@ import data from '../../posts.json';
 
 const PostWindow = () => {
   const postCtx = useContext(PostsContext);
-  if (postCtx.items.length > 0) {
-    console.log(postCtx.items);
+  if (postCtx!.items.length > 0) {
+    console.log(postCtx!.items);
   }
   return (
     <div className={styles.postWindow}>
       <div>post window</div>
-      {postCtx.items.map((post, index) => (
+      {postCtx!.items.map((post, index) => (
         <PostContainer
           key={index}
           _id={post._id}

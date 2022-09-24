@@ -18,7 +18,7 @@ const App = () => {
       const responseUsers = await axios.get('http://localhost:3001/user/get');
       const responsePost = await axios.get('http://localhost:3001/post/get');
       console.log(responseUsers.data);
-      userCtx.addUser(responseUsers.data);
+      userCtx!.addUser(responseUsers.data);
 
       const newData = responsePost.data.map((post: any) => {
         post.createdAt = new Date(post.createdAt).toLocaleString('en-GB');
@@ -27,11 +27,19 @@ const App = () => {
         }
         return post;
       });
-      postsCtx.addPost(newData);
+      postsCtx!.addPost(newData);
     };
     getData();
   }, []);
-  console.log(userCtx.items);
+  if (postsCtx!.items.length > 0) {
+    console.log(userCtx!.findUserById(postsCtx!.items[0].author));
+  }
+  console.log(
+    postsCtx!.findPostById([
+      '632ed28fc16a90141bb5cf54',
+      '632edb3483bceb87dcd849d4',
+    ]),
+  );
 
   return (
     <BrowserRouter>
