@@ -1,22 +1,33 @@
 import styles from './login.module.scss';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { LoggedInContext } from '../../contexts/LoggedInContext';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-interface LoginProps {
-  setUser: React.Dispatch<React.SetStateAction<any>>;
-}
-
-const Login: React.FC<LoginProps> = ({ setUser }) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-
+const Login = () => {
+  const loginCtx = useContext(LoggedInContext);
   const navigate = useNavigate();
+
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    if (!name || !email) return;
-    setUser({ name, email });
-    navigate('/dashboard');
+    if (!name || !password) return;
+    const data = {
+      username: name,
+      password: password,
+    };
+    try {
+      await axios.post('http://localhost:3001/auth/login', data, {
+        withCredentials: true,
+      });
+      loginCtx!.setLoggedInStatus(true);
+      navigate('/dashboard');
+    } catch (error: any) {
+      console.log(error.response.data);
+      loginCtx!.setLoggedInStatus(false);
+    }
   };
 
   return (
@@ -25,25 +36,25 @@ const Login: React.FC<LoginProps> = ({ setUser }) => {
         <h5>login</h5>
         <div className={styles.formRow}>
           <input
-            placeholder='name'
-            type='text'
+            placeholder="name"
+            type="text"
             className={styles.formInput}
-            id='name'
+            id="name"
             value={name}
-            onChange={e => setName(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
         <div className={styles.formRow}>
           <input
-            placeholder='email'
-            type='email'
+            placeholder="password"
+            type="password"
             className={styles.formInput}
-            id='email'
-            value={email}
-            onChange={e => setEmail(e.target.value)}
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type='submit' className={`${styles.btn} ${styles.btnBlock}`}>
+        <button type="submit" className={`${styles.btn} ${styles.btnBlock}`}>
           login
         </button>
       </form>
