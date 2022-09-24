@@ -1,18 +1,10 @@
+import { Post } from '../../interfaces/interfaces';
 import styles from './postContainer.module.scss';
-import { IPost } from '../../interfaces/post';
-interface Post {
-  _id: String;
-  title: String;
-  content: String;
-  author: String;
-  createdAt: Date;
-  updatedAt?: Date;
-}
 interface Props extends Post {
   children?: React.ReactNode;
 }
 
-const PostContainer: React.FC<Props> = props => {
+const PostContainer: React.FC<Props> = (props) => {
   return (
     <div className={styles.postContainer}>
       <div className={styles.header}>
