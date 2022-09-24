@@ -30,6 +30,7 @@ const App = () => {
       postsCtx!.addPost(newData);
     };
     getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   if (postsCtx!.items.length > 0) {
     console.log(userCtx!.findUserById(postsCtx!.items[0].author));
