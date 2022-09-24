@@ -14,6 +14,13 @@ const PostSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  createdAt: {
+    type: Date,
+    immutable: true,
+  },
+  updatedAt: {
+    type: Date,
+  },
 });
 
 export default mongoose.model("Post", PostSchema);
