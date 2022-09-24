@@ -1,24 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { useContext, useEffect } from "react";
-import { PostsContext } from "../../contexts/PostContext";
-import styles from "./postWindow.module.scss";
-import PostContainer from "../postContainer/PostContainer";
-import data from "../../posts.json";
-import axios from "axios";
+import { useContext} from 'react';
+import { PostsContext } from '../../contexts/PostContext';
+import styles from './postWindow.module.scss';
+import PostContainer from '../postContainer/PostContainer';
+import data from '../../posts.json';
 
 const PostWindow = () => {
-  const postsCtx = useContext(PostsContext);
-  useEffect(() => {
-    const getData = async () => {
-      const response = await axios.get("http://localhost:3001/post/get");
-      // console.log(response.data);
-      postsCtx.addPost(response.data);
-    };
-    getData();
-  },[]);
-  console.log(postsCtx.items);
-
+  const postCtx = useContext(PostsContext);
+  if (postCtx.items.length > 0) {
+    console.log(postCtx.items);
+  }
   return (
     <div className={styles.postWindow}>
       <div>post window</div>
