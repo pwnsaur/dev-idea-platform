@@ -13,9 +13,8 @@ const PostsContextProvider: React.FC<Props> = (props) => {
   const [posts, setPosts] = useState<Post[]>([]);
   const addPostHandler = (posts: Post[]) => {
     const newPosts: Post[] = posts;
-    setPosts((prevPosts) => {
-      return (prevPosts = [...prevPosts, ...newPosts]);
-    });
+    newPosts.reverse();
+    setPosts([...newPosts]);
   };
   const findPostById = (id: string | string[]) => {
     if (typeof id === 'string') {

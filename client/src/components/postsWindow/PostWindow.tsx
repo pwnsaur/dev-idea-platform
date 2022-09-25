@@ -14,7 +14,7 @@ const PostWindow = () => {
   return (
     <div className={styles.postWindow}>
       <div>post window</div>
-      {postCtx!.items.reverse().map((post, index) => (
+      {postCtx!.items.map((post, index) => (
         <PostContainer
           key={index}
           _id={post._id}
