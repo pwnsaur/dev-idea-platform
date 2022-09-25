@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 const Dashboard: React.FC = () => {
   const loginCtx = useContext(LoggedInContext);
 
-  if (!loginCtx!.isLoggedIn) {
+  if (!loginCtx!.login.isLoggedIn) {
     return (
       <div>
         <p>You need to login</p>

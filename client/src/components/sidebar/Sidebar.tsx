@@ -2,7 +2,6 @@ import styles from './sidebar.module.scss';
 import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
 import { LoggedInContext } from '../../contexts/LoggedInContext';
-import Button from '../reusableComponents/Button';
 import axios from 'axios';
 
 const Navbar = () => {
@@ -13,7 +12,8 @@ const Navbar = () => {
       {},
       { withCredentials: true },
     );
-    loginCtx!.setLoggedInStatus(false);
+    loginCtx!.setLoggedInStatus(false, '');
+    localStorage.removeItem('login');
     console.log(response);
   };
   return (
@@ -21,8 +21,10 @@ const Navbar = () => {
       <NavLink to="/">Home</NavLink>
       <NavLink to="/dashboard">Dashboard</NavLink>
       <NavLink to="/write">Write</NavLink>
-      {!loginCtx!.isLoggedIn && <NavLink to="/login">Login</NavLink>}
-      {loginCtx!.isLoggedIn && <button onClick={clickHandler}>Logout</button>}
+      {!loginCtx!.login.isLoggedIn && <NavLink to="/login">Login</NavLink>}
+      {loginCtx!.login.isLoggedIn && (
+        <button onClick={clickHandler}>Logout</button>
+      )}
     </nav>
   );
 };

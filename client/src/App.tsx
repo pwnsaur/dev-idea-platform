@@ -1,46 +1,83 @@
 import * as Pages from './pages/index';
 import * as Components from './components/index';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
-import { useState, useEffect, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import axios from 'axios';
 import { PostsContext } from './contexts/PostContext';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import PostsContextProvider from './contexts/PostContext';
 import { UsersContext } from './contexts/UserContext';
+import { LoggedInContext } from './contexts/LoggedInContext';
 
 const App = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [user, setUser] = useState('');
   const postsCtx = useContext(PostsContext);
   const userCtx = useContext(UsersContext);
-  useEffect(() => {
-    const getData = async () => {
-      const responseUsers = await axios.get('http://localhost:3001/user/get');
-      const responsePost = await axios.get('http://localhost:3001/post/get');
-      console.log(responseUsers.data);
-      userCtx!.addUser(responseUsers.data);
+  const loginCtx = useContext(LoggedInContext);
 
-      const newData = responsePost.data.map((post: any) => {
-        post.createdAt = new Date(post.createdAt).toLocaleString('en-GB');
-        if (post.updatedAt) {
-          post.updatedAt = new Date(post.updatedAt).toLocaleString('en-GB');
-        }
-        return post;
-      });
-      postsCtx!.addPost(newData);
-    };
-    getData();
+  const getData = async () => {
+    const responseUsers = await axios.get('http://localhost:3001/user/get');
+    const responsePost = await axios.get('http://localhost:3001/post/get');
+    userCtx!.addUser(responseUsers.data);
+
+    localStorage.setItem('users', JSON.stringify(responseUsers.data));
+
+    const newData = responsePost.data.map((post: any) => {
+      post.createdAt = new Date(post.createdAt).toLocaleString('en-GB');
+      if (post.updatedAt) {
+        post.updatedAt = new Date(post.updatedAt).toLocaleString('en-GB');
+      }
+      return post;
+    });
+    postsCtx!.addPost(newData);
+
+    localStorage.setItem('posts', JSON.stringify(newData));
+  };
+
+  const checkLocalLogin = () => {
+    const login = localStorage.getItem('login');
+    if (login) {
+      const data = JSON.parse(login);
+      const currDate = new Date();
+      const locDate = Date.parse(data.loggedInAt);
+      if (Math.abs(locDate - currDate.getTime()) / 36e5 < 1) {
+        loginCtx!.setLoggedInStatus(data.isLoggedIn, data.id, data.loggedInAt);
+      }
+    }
+  };
+
+  const getChanges = async () => {
+    const response = await axios.get('http://localhost:3001/changes/get');
+    return response.data.latestChanges;
+  };
+
+  const checkChanges = async () => {
+    const changes = localStorage.getItem('changes');
+    if (changes) {
+      const locDate = JSON.parse(changes);
+      const localChanges = Date.parse(locDate);
+      const apiDate = await getChanges();
+      const apiChanges = Date.parse(apiDate);
+      if (apiChanges !== localChanges) {
+        getData();
+        localStorage.setItem('changes', JSON.stringify({ date: apiChanges }));
+      } else {
+        const uData = localStorage.getItem('users');
+        const users = JSON.parse(uData!);
+        userCtx!.addUser(users);
+        const pData = localStorage.getItem('posts');
+        const posts = JSON.parse(pData!);
+        postsCtx!.addPost(posts);
+      }
+    } else {
+      getData();
+      const apiChanges = await getChanges();
+      localStorage.setItem('changes', JSON.stringify({ date: apiChanges }));
+    }
+  };
+
+  useEffect(() => {
+    checkLocalLogin();
+    checkChanges();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  if (postsCtx!.items.length > 0) {
-    console.log(userCtx!.findUserById(postsCtx!.items[0].author));
-  }
-  console.log(
-    postsCtx!.findPostById([
-      '632ed28fc16a90141bb5cf54',
-      '632edb3483bceb87dcd849d4',
-    ]),
-  );
 
   return (
     <BrowserRouter>
