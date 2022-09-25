@@ -34,7 +34,7 @@ export const loginUser = async (req, res) => {
     }
     const pwdIsCorrect = bcrypt.compareSync(req.body.password, user.password);
     if (!pwdIsCorrect) {
-      return set.status(406).send("Username or password is incorrect!");
+      return res.status(406).send("Username or password is incorrect!");
     }
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1 hour",

@@ -102,6 +102,14 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="edit/:id"
+              element={
+                <ProtectedRoute user={loginCtx!.login.isLoggedIn}>
+                  <Pages.Edit />
+                </ProtectedRoute>
+              }
+            />
             <Route path="login" element={<Pages.Login />} />
             <Route path="register" element={<Pages.Register />} />
             <Route path="post/:id" element={<Pages.Post />} />
