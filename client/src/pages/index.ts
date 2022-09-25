@@ -1,8 +1,9 @@
 import Home from './home/Home';
 import Dashboard from './dashboard/Dashboard';
+import Error from './Error/Error';
 import Login from './login/Login';
-import Write from './write/Write';
-import Register from './register/Register';
 import Post from './post/Post';
+import Register from './register/Register';
+import Write from './write/Write';
 
-export { Dashboard, Home, Login, Write, Register, Post };
+export { Dashboard, Error, Home, Login, Post, Register, Write };

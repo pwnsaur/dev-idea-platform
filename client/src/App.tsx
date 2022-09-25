@@ -55,7 +55,7 @@ const App = () => {
               path="dashboard"
               element={
                 <ProtectedRoute user={loginCtx!.isLoggedIn}>
-                  {<Pages.Dashboard />}
+                  <Pages.Dashboard />
                 </ProtectedRoute>
               }
             />
@@ -63,13 +63,14 @@ const App = () => {
               path="write"
               element={
                 <ProtectedRoute user={loginCtx!.isLoggedIn}>
-                  {<Pages.Write />}
+                  <Pages.Write />
                 </ProtectedRoute>
               }
             />
             <Route path="login" element={<Pages.Login />} />
             <Route path="register" element={<Pages.Register />} />
             <Route path="post/:id" element={<Pages.Post />} />
+            <Route path="*" element={<Pages.Error />} />
           </Route>
         </Routes>
       </div>
