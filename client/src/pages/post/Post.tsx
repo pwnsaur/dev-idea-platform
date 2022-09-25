@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import styles from './postContainer.module.scss';
+import styles from './post.module.scss';
 import { useContext } from 'react';
 import { UsersContext } from '../../contexts/UserContext';
 import { PostsContext } from '../../contexts/PostContext';
@@ -15,12 +15,16 @@ const Post = () => {
   const user = userCtx!.findUserById(post[0].author);
   return (
     <div className={styles.postContainer}>
-      <div className={styles.header}>
-        <span className={styles.author}>{`${user.name} ${user.surname}`}</span>
-        <span className={styles.date}>{String(post[0].createdAt)}</span>
+      <div className={styles.post}>
+        <div className={styles.header}>
+          <span
+            className={styles.author}
+          >{`${user.name} ${user.surname}`}</span>
+          <span className={styles.date}>{String(post[0].createdAt)}</span>
+        </div>
+        <h3 className={styles.title}>{post[0].title}</h3>
+        <p className={styles.body}>{post[0].content}</p>
       </div>
-      <h3 className={styles.title}>{post[0].title}</h3>
-      <p className={styles.body}>{post[0].content}</p>
     </div>
   );
 };

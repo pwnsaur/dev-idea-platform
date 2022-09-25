@@ -1,6 +1,6 @@
 import Home from './home/Home';
 import Dashboard from './dashboard/Dashboard';
-import Error from './Error/Error';
+import Error from './error/Error';
 import Login from './login/Login';
 import Post from './post/Post';
 import Register from './register/Register';
