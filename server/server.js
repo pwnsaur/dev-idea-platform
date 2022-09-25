@@ -6,6 +6,7 @@ import connectionToMongo from "./utils/connection.js";
 import authRoute from "./routes/authRoutes.js";
 import postRoute from "./routes/postRoutes.js";
 import userRoute from "./routes/userRoutes.js";
+import { updateChange } from "./controllers/changeController.js";
 const app = express();
 
 dotenv.config();
@@ -17,7 +18,7 @@ app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use("/auth", authRoute);
 app.use("/post", postRoute);
 app.use("/user", userRoute);
-
+updateChange();
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
   connectionToMongo();
