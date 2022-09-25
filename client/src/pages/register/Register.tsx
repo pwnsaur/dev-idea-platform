@@ -52,7 +52,7 @@ const Register = () => {
   };
   console.log(user);
   return (
-    <section className={styles.login}>
+    <section className={styles.register}>
       <form className={styles.form} onSubmit={handleSubmit}>
         <h5>Register</h5>
         <div className={styles.formRow}>
@@ -116,7 +116,7 @@ const Register = () => {
           />
         </div>
         <button type="submit" className={`${styles.btn} ${styles.btnBlock}`}>
-          login
+          register
         </button>
       </form>
     </section>
