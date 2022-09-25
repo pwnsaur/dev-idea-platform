@@ -51,6 +51,7 @@ const App = () => {
             <Route path="dashboard" element={<Pages.Dashboard />} />
             <Route path="write" element={<Pages.Write />} />
             <Route path="login" element={<Pages.Login />} />
+            <Route path="register" element={<Pages.Register />} />
           </Route>
         </Routes>
       </div>

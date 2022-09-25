@@ -2,5 +2,7 @@ import Home from './home/Home';
 import Dashboard from './dashboard/Dashboard';
 import Login from './login/Login';
 import Write from './write/Write';
+import Register from './register/Register';
 
-export { Dashboard, Home, Login, Write };
+
+export { Dashboard, Home, Login, Write,Register };

@@ -23,7 +23,6 @@ const Navbar = () => {
       <NavLink to="/write">Write</NavLink>
       {!loginCtx!.isLoggedIn && <NavLink to="/login">Login</NavLink>}
       {loginCtx!.isLoggedIn && <button onClick={clickHandler}>Logout</button>}
-      <Button text="Click" />
     </nav>
   );
 };
