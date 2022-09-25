@@ -7,22 +7,24 @@ import PostContainer from '../postContainer/PostContainer';
 
 const PostWindow = () => {
   const postCtx = useContext(PostsContext);
-  if (postCtx!.items.length > 0) {
-    console.log(postCtx!.items);
-  }
   return (
     <div className={styles.postWindow}>
       <div>post window</div>
-      {postCtx!.items.map((post, index) => (
-        <PostContainer
-          key={index}
-          _id={post._id}
-          title={post.title}
-          content={post.content}
-          author={post.author}
-          createdAt={post.createdAt}
-        />
-      ))}
+
+      {postCtx!.items.length > 0 ? (
+        postCtx!.items.map((post, index) => (
+          <PostContainer
+            key={index}
+            _id={post._id}
+            title={post.title}
+            content={post.content}
+            author={post.author}
+            createdAt={post.createdAt}
+          />
+        ))
+      ) : (
+        <h1>There are no posts yet, Go and create some!</h1>
+      )}
     </div>
   );
 };
