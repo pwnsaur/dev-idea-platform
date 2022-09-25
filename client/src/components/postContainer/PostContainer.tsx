@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 import { Post } from '../../interfaces/interfaces';
 import styles from './postContainer.module.scss';
 
-interface Props extends Post {
-  children?: React.ReactNode;
-}
+// interface Props extends Post {
+//   children?: React.ReactNode;
+// }
 
-const PostContainer: React.FC<Props> = (props) => {
+const PostContainer = (props: Post) => {
   const userCtx = useContext(UsersContext);
   const author = userCtx!.findUserById(props.author);
   return (

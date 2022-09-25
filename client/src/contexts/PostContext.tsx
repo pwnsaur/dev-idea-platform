@@ -4,7 +4,7 @@ import { Post } from '../interfaces/interfaces';
 type PostsContextObj = {
   items: Post[];
   addPost: (posts: Post[]) => void;
-  findPostById: (id: string | string[]) => Post | Post[];
+  findPostById: (id: string | string[]) => Array<Post>;
 };
 
 export const PostsContext = createContext<PostsContextObj | null>(null);
@@ -18,7 +18,7 @@ const PostsContextProvider: React.FC<Props> = (props) => {
   };
   const findPostById = (id: string | string[]) => {
     if (typeof id === 'string') {
-      return posts.filter((post) => post._id === id)[0];
+      return posts.filter((post) => post._id === id);
     } else {
       return posts.filter((post) => id.includes(post._id));
     }
