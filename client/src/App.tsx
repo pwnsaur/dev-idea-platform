@@ -89,7 +89,7 @@ const App = () => {
             <Route
               path="dashboard"
               element={
-                <ProtectedRoute user={loginCtx!.isLoggedIn}>
+                <ProtectedRoute user={loginCtx!.login.isLoggedIn}>
                   <Pages.Dashboard />
                 </ProtectedRoute>
               }
@@ -97,7 +97,7 @@ const App = () => {
             <Route
               path="write"
               element={
-                <ProtectedRoute user={loginCtx!.isLoggedIn}>
+                <ProtectedRoute user={loginCtx!.login.isLoggedIn}>
                   <Pages.Write />
                 </ProtectedRoute>
               }
