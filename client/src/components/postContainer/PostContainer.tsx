@@ -21,7 +21,9 @@ const PostContainer = (props: Post) => {
           <span className={styles.date}>{String(props.createdAt)}</span>
         </div>
         <h3 className={styles.title}>{props.title}</h3>
-        <p className={styles.body}>{props.content}</p>
+        <div className={styles['content-wrapper']}>
+          <p className={styles.content}>{props.content}</p>
+        </div>
       </Link>
     </div>
   );
