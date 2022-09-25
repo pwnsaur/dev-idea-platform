@@ -1,5 +1,5 @@
 import userModel from "../models/userModel.js";
-// import { ValidateFn } from "mongoose";
+import { updateChange } from "./changeController.js";
 
 export const getUsers = async (req, res) => {
   try {
@@ -15,6 +15,7 @@ export const updateUser = async (req, res) => {
   try {
     const { password, username, posts, ...data } = req.body;
     await userModel.findByIdAndUpdate(req.params.id, { $set: { ...data } });
+    await updateChange();
     res.status(200).send("Successfully updated user");
   } catch (error) {
     console.error(error);

@@ -15,3 +15,9 @@ export interface User {
   surname: string;
   posts: string[];
 }
+
+export interface Login {
+  isLoggedIn: boolean;
+  id: string;
+  loggedInAt: Date;
+}

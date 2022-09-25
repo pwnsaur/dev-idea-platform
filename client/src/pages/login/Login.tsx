@@ -19,14 +19,28 @@ const Login = () => {
       password: password,
     };
     try {
-      await axios.post('http://localhost:3001/auth/login', data, {
-        withCredentials: true,
-      });
-      loginCtx!.setLoggedInStatus(true);
+      const response = await axios.post(
+        'http://localhost:3001/auth/login',
+        data,
+        {
+          withCredentials: true,
+        },
+      );
+      const newDate = new Date();
+      loginCtx!.setLoggedInStatus(true, response.data.id, newDate);
+      console.log(loginCtx!.login);
+      localStorage.setItem(
+        'login',
+        JSON.stringify({
+          isLoggedIn: true,
+          id: response.data.id,
+          loggedInAt: newDate,
+        }),
+      );
       navigate('/dashboard');
     } catch (error: any) {
       console.log(error.response.data);
-      loginCtx!.setLoggedInStatus(false);
+      // loginCtx!.setLoggedInStatus(false, '');
     }
   };
 

@@ -1,7 +1,7 @@
 import { response } from "express";
 import postModel from "../models/postModel.js";
 import userModel from "../models/userModel.js";
-
+import { updateChange } from "./changeController.js";
 export const createPost = async (req, res) => {
   try {
     const newPost = new postModel({
@@ -13,6 +13,7 @@ export const createPost = async (req, res) => {
     user.posts = [...user.posts, newPost._id];
     await user.save();
     await newPost.save();
+    await updateChange();
     res.status(201).send("Succesfully created new post!");
   } catch (error) {
     console.error(error);
@@ -38,6 +39,7 @@ export const updatePost = async (req, res) => {
     await postModel.findByIdAndUpdate(req.params.id, {
       $set: { ...req.body, updatedAt: Date() },
     });
+    await updateChange();
     res.status(200).send("Succesfully updated post!");
   } catch (error) {
     console.error(error);
@@ -51,6 +53,7 @@ export const deletePost = async (req, res) => {
     const user = await userModel.findById(req.user.id);
     user.posts = user.posts.filter((post) => post !== req.params.id);
     await user.save();
+    await updateChange();
     res.status(200).send("Succesfully deleted post!");
   } catch (error) {
     console.error(error);

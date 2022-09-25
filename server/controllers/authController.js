@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 import { set } from "mongoose";
-
+import { updateChange } from "./changeController.js";
 const STRONG_PWD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
 
@@ -17,6 +17,7 @@ export const registerUser = async (req, res) => {
       ...req.body,
       password: hash,
     });
+    await updateChange();
     await newUser.save();
     res.status(201).send("New user is created");
   } catch (error) {
@@ -41,7 +42,7 @@ export const loginUser = async (req, res) => {
     return res
       .cookie("session_token", token, { httpOnly: true })
       .status(201)
-      .send("Succesfully logged in!");
+      .json({ message: "Successfully logged in", id: user._id });
   } catch (error) {
     console.error(error);
     res.status(400).send(error);
