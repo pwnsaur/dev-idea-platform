@@ -5,6 +5,7 @@ import { useEffect, useContext } from 'react';
 import axios from 'axios';
 import { PostsContext } from './contexts/PostContext';
 import { UsersContext } from './contexts/UserContext';
+import ProtectedRoute from './utils/ProtectedRoutes';
 import { LoggedInContext } from './contexts/LoggedInContext';
 
 const App = () => {
@@ -85,11 +86,26 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Components.SharedLayout />}>
             <Route index element={<Pages.Home />} />
-            <Route path="dashboard" element={<Pages.Dashboard />} />
-            <Route path="write" element={<Pages.Write />} />
+            <Route
+              path="dashboard"
+              element={
+                <ProtectedRoute user={loginCtx!.isLoggedIn}>
+                  <Pages.Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="write"
+              element={
+                <ProtectedRoute user={loginCtx!.isLoggedIn}>
+                  <Pages.Write />
+                </ProtectedRoute>
+              }
+            />
             <Route path="login" element={<Pages.Login />} />
             <Route path="register" element={<Pages.Register />} />
             <Route path="post/:id" element={<Pages.Post />} />
+            <Route path="*" element={<Pages.Error />} />
           </Route>
         </Routes>
       </div>

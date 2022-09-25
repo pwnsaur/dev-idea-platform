@@ -15,6 +15,7 @@ const Dashboard: React.FC = () => {
     );
   }
 
+const Dashboard: React.FC = () => {
   return (
     <div className={styles.dashboard}>
       <section className="section">
