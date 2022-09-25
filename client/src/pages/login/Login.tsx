@@ -1,7 +1,7 @@
 import styles from './login.module.scss';
 import { useState, useContext } from 'react';
 import { LoggedInContext } from '../../contexts/LoggedInContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import axios from 'axios';
 
 const Login = () => {
@@ -57,6 +57,7 @@ const Login = () => {
         <button type="submit" className={`${styles.btn} ${styles.btnBlock}`}>
           login
         </button>
+        <NavLink to="/register">Register</NavLink>
       </form>
     </section>
   );
