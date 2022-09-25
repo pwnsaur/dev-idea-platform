@@ -16,14 +16,16 @@ const Post = () => {
   return (
     <div className={styles.postContainer}>
       <div className={styles.post}>
-        <div className={styles.header}>
+        <section className={styles.header}>
           <span
             className={styles.author}
           >{`${user.name} ${user.surname}`}</span>
           <span className={styles.date}>{String(post[0].createdAt)}</span>
-        </div>
-        <h3 className={styles.title}>{post[0].title}</h3>
-        <p className={styles.body}>{post[0].content}</p>
+        </section>
+        <section className={styles.body}>
+          <h3 className={styles.title}>{post[0].title}</h3>
+          <p className={styles.body}>{post[0].content}</p>
+        </section>
       </div>
     </div>
   );
