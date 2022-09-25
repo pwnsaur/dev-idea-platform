@@ -7,12 +7,15 @@ import { PostsContext } from './contexts/PostContext';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import PostsContextProvider from './contexts/PostContext';
 import { UsersContext } from './contexts/UserContext';
+import ProtectedRoute from './utils/ProtectedRoutes';
+import { LoggedInContext } from './contexts/LoggedInContext';
 
 const App = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [user, setUser] = useState('');
   const postsCtx = useContext(PostsContext);
   const userCtx = useContext(UsersContext);
+  const loginCtx = useContext(LoggedInContext);
   useEffect(() => {
     const getData = async () => {
       const responseUsers = await axios.get('http://localhost:3001/user/get');
@@ -48,8 +51,22 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Components.SharedLayout />}>
             <Route index element={<Pages.Home />} />
-            <Route path="dashboard" element={<Pages.Dashboard />} />
-            <Route path="write" element={<Pages.Write />} />
+            <Route
+              path="dashboard"
+              element={
+                <ProtectedRoute user={loginCtx!.isLoggedIn}>
+                  {<Pages.Dashboard />}
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="write"
+              element={
+                <ProtectedRoute user={loginCtx!.isLoggedIn}>
+                  {<Pages.Write />}
+                </ProtectedRoute>
+              }
+            />
             <Route path="login" element={<Pages.Login />} />
             <Route path="register" element={<Pages.Register />} />
             <Route path="post/:id" element={<Pages.Post />} />
