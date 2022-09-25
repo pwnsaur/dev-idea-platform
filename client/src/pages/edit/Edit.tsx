@@ -11,7 +11,11 @@ type Post = {
   content: string;
 };
 
-const Edit = () => {
+type Props = {
+  triggerHandler: () => void;
+};
+
+const Edit = (props: Props) => {
   const postCtx = useContext(PostsContext);
   const params = useParams();
   const post = postCtx!.findPostById(String(params.id))[0];
@@ -32,11 +36,11 @@ const Edit = () => {
       });
       setTitle('');
       setContent('');
+      props.triggerHandler();
       navigate('/dashboard');
     } catch (error) {
       console.log(error);
     }
-
   };
 
   return (
@@ -58,7 +62,7 @@ const Edit = () => {
           className={styles.textPad}
           required
         ></textarea>
-        <input type="submit" value="add post" className={styles.submitBtn} />
+        <input type="submit" value="Submit Changes" className={styles.submitBtn} />
       </form>
     </div>
   );
