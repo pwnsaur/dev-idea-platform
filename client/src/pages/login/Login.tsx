@@ -71,7 +71,9 @@ const Login = () => {
         <button type="submit" className={`${styles.btn} ${styles.btnBlock}`}>
           login
         </button>
-        <NavLink to="/register">Register</NavLink>
+        <NavLink className={styles.register} to="/register">
+          Register
+        </NavLink>
       </form>
     </section>
   );
