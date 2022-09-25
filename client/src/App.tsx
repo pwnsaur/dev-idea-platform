@@ -1,7 +1,7 @@
 import * as Pages from './pages/index';
 import * as Components from './components/index';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
-import { useEffect, useContext } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { PostsContext } from './contexts/PostContext';
 import { UsersContext } from './contexts/UserContext';
@@ -12,6 +12,11 @@ const App = () => {
   const postsCtx = useContext(PostsContext);
   const userCtx = useContext(UsersContext);
   const loginCtx = useContext(LoggedInContext);
+  const [trigger, setTrigger] = useState(false);
+
+  const handleTrigger = () => {
+    setTrigger((prev) => !prev);
+  };
 
   const getData = async () => {
     const responseUsers = await axios.get('http://localhost:3001/user/get');
@@ -74,11 +79,21 @@ const App = () => {
     }
   };
 
+  const FIVE_MINUTES_MS = 60000 * 5;
+  useEffect(() => {
+    const interval = setInterval(() => {
+      checkLocalLogin();
+      checkChanges();
+    }, FIVE_MINUTES_MS);
+    return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   useEffect(() => {
     checkLocalLogin();
     checkChanges();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [trigger]);
 
   return (
     <BrowserRouter>
@@ -98,7 +113,7 @@ const App = () => {
               path="write"
               element={
                 <ProtectedRoute user={loginCtx!.login.isLoggedIn}>
-                  <Pages.Write />
+                  <Pages.Write triggerHandler={handleTrigger} />
                 </ProtectedRoute>
               }
             />
@@ -106,7 +121,7 @@ const App = () => {
               path="edit/:id"
               element={
                 <ProtectedRoute user={loginCtx!.login.isLoggedIn}>
-                  <Pages.Edit />
+                  <Pages.Edit triggerHandler={handleTrigger} />
                 </ProtectedRoute>
               }
             />

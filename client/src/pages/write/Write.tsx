@@ -7,8 +7,11 @@ type Post = {
   title: string;
   content: string;
 };
+type Props = {
+  triggerHandler: () => void;
+};
 
-const Write = () => {
+const Write = (props: Props) => {
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -29,6 +32,7 @@ const Write = () => {
 
     setTitle('');
     setContent('');
+    props.triggerHandler();
     navigate('/');
   };
 
