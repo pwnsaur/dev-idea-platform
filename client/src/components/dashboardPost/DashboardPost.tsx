@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Post } from '../../interfaces/interfaces';
 import styles from './postContainer.module.scss';
 
@@ -11,6 +12,9 @@ const DashboardPost = (props: Post) => {
       <div className={styles['content-wrapper']}>
         <p className={styles.content}>{props.content}</p>
       </div>
+      <Link className="nav" to={`/edit/${props._id}`}>
+        Edit
+      </Link>
     </div>
   );
 };

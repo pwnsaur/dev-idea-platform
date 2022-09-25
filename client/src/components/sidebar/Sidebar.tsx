@@ -18,13 +18,13 @@ const Navbar = () => {
   };
   const loggedIn = (
     <>
-      <NavLink className={styles.nav} to="/dashboard">
+      <NavLink className="nav" to="/dashboard">
         Dashboard
       </NavLink>
-      <NavLink className={styles.nav} to="/write">
+      <NavLink className="nav" to="/write">
         Write
       </NavLink>
-      <button className={styles.nav} onClick={clickHandler}>
+      <button className="nav" onClick={clickHandler}>
         Logout
       </button>
     </>
@@ -32,13 +32,13 @@ const Navbar = () => {
 
   return (
     <nav className={styles.sidebar}>
-      <NavLink className={styles.nav} to="/">
+      <NavLink className="nav" to="/">
         Home
       </NavLink>
 
       {loginCtx!.login.isLoggedIn && loggedIn}
       {!loginCtx!.login.isLoggedIn && (
-        <NavLink className={styles.nav} to="/login">
+        <NavLink className="nav" to="/login">
           Login
         </NavLink>
       )}

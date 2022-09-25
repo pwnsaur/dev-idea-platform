@@ -1,6 +1,9 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import styles from './write.module.scss';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useContext } from 'react';
+import { PostsContext } from '../../contexts/PostContext';
+import { useNavigate, useParams } from 'react-router-dom';
+// import { useContext } from 'react';
 import axios from 'axios';
 
 type Post = {
@@ -8,28 +11,32 @@ type Post = {
   content: string;
 };
 
-const Write = () => {
+const Edit = () => {
+  const postCtx = useContext(PostsContext);
+  const params = useParams();
+  const post = postCtx!.findPostById(String(params.id))[0];
   const navigate = useNavigate();
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState(post.title);
+  const [content, setContent] = useState(post.content);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(title);
     const post: Post = {
-      title,
-      content,
+      title: title,
+      content: content,
     };
     try {
-      await axios.post('http://localhost:3001/post/create', post, {
+      await axios.put(`http://localhost:3001/post/update/${params.id}`, post, {
         withCredentials: true,
       });
-    } catch {
-      console.log('error');
+      setTitle('');
+      setContent('');
+      navigate('/dashboard');
+    } catch (error) {
+      console.log(error);
     }
 
-    setTitle('');
-    setContent('');
-    navigate('/');
   };
 
   return (
@@ -51,10 +58,10 @@ const Write = () => {
           className={styles.textPad}
           required
         ></textarea>
-        <input type="submit" value="add post" className="nav" />
+        <input type="submit" value="add post" className={styles.submitBtn} />
       </form>
     </div>
   );
 };
 
-export default Write;
+export default Edit;
