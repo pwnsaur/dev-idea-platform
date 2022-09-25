@@ -23,10 +23,12 @@ const UserSchema = new mongoose.Schema({
   },
   name: {
     type: String,
+    required: true,
     match: NAME_SURNAME_REGEX,
   },
   surname: {
     type: String,
+    required: true,
     match: NAME_SURNAME_REGEX,
   },
   posts: [String],
