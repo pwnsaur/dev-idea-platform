@@ -4,6 +4,7 @@ import axios from 'axios';
 import styles from './sidebar.module.scss';
 import { LoggedInContext } from '../../contexts/LoggedInContext';
 import { server } from '../../utils/Globals';
+import Footer from '../footer/Footer';
 
 const Navbar = () => {
   const loginCtx = useContext(LoggedInContext);
@@ -28,6 +29,11 @@ const Navbar = () => {
 
   return (
     <nav className={styles.sidebar}>
+      <h1 className={styles.title}>CODEBRAH</h1>
+      <p className={styles.subtitle}>
+        share ideas <br />
+        with your bros
+      </p>
       <NavLink className="nav" to="/">
         Home
       </NavLink>
@@ -38,6 +44,7 @@ const Navbar = () => {
           Login
         </NavLink>
       )}
+      <Footer />
     </nav>
   );
 };

@@ -97,8 +97,8 @@ const App = () => {
   }, [trigger]);
 
   return (
-    <BrowserRouter>
-      <div className="container">
+    <div className="container">
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<Components.SharedLayout />}>
             <Route index element={<Pages.Home />} />
@@ -132,8 +132,8 @@ const App = () => {
             <Route path="*" element={<Pages.Error />} />
           </Route>
         </Routes>
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </div>
   );
 };
 

@@ -32,12 +32,14 @@ const DashboardPost: React.FC<Props> = (props) => {
       <div className={styles['content-wrapper']}>
         <p className={styles.content}>{props.content}</p>
       </div>
-      <Link className="nav" to={`/edit/${props._id}`}>
-        Edit
-      </Link>
-      <button className="nav" onClick={handleDelete}>
-        Delete
-      </button>
+      <div className={styles.buttons}>
+        <Link className={`${styles.buttonLeft} nav`} to={`/edit/${props._id}`}>
+          Edit
+        </Link>
+        <button className={`${styles.buttonRight} nav`} onClick={handleDelete}>
+          Delete
+        </button>
+      </div>
     </div>
   );
 };
