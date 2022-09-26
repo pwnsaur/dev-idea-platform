@@ -3,12 +3,13 @@ import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
 import { LoggedInContext } from '../../contexts/LoggedInContext';
 import axios from 'axios';
+import { server } from '../../utils/Globals';
 
 const Navbar = () => {
   const loginCtx = useContext(LoggedInContext);
   const clickHandler = async () => {
     const response = await axios.post(
-      'http://localhost:3001/auth/logout',
+      `${server}auth/logout`,
       {},
       { withCredentials: true },
     );

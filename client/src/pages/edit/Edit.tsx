@@ -5,6 +5,7 @@ import { PostsContext } from '../../contexts/PostContext';
 import { useNavigate, useParams } from 'react-router-dom';
 // import { useContext } from 'react';
 import axios from 'axios';
+import { server } from '../../utils/Globals';
 
 type Post = {
   title: string;
@@ -31,7 +32,7 @@ const Edit = (props: Props) => {
       content: content,
     };
     try {
-      await axios.put(`http://localhost:3001/post/update/${params.id}`, post, {
+      await axios.put(`${server}post/update/${params.id}`, post, {
         withCredentials: true,
       });
       setTitle('');
@@ -62,7 +63,11 @@ const Edit = (props: Props) => {
           className={styles.textPad}
           required
         ></textarea>
-        <input type="submit" value="Submit Changes" className={styles.submitBtn} />
+        <input
+          type="submit"
+          value="Submit Changes"
+          className={styles.submitBtn}
+        />
       </form>
     </div>
   );

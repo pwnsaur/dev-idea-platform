@@ -3,6 +3,7 @@ import { useState, useContext } from 'react';
 import { LoggedInContext } from '../../contexts/LoggedInContext';
 import { useNavigate, NavLink } from 'react-router-dom';
 import axios from 'axios';
+import { server } from '../../utils/Globals';
 
 const Login = () => {
   const loginCtx = useContext(LoggedInContext);
@@ -19,13 +20,9 @@ const Login = () => {
       password: password,
     };
     try {
-      const response = await axios.post(
-        'http://localhost:3001/auth/login',
-        data,
-        {
-          withCredentials: true,
-        },
-      );
+      const response = await axios.post(`${server}auth/login`, data, {
+        withCredentials: true,
+      });
       const newDate = new Date();
       loginCtx!.setLoggedInStatus(true, response.data.id, newDate);
       console.log(loginCtx!.login);

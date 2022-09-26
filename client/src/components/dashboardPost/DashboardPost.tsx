@@ -3,6 +3,7 @@ import { Post } from '../../interfaces/interfaces';
 import { useNavigate } from 'react-router-dom';
 import styles from './postContainer.module.scss';
 import axios from 'axios';
+import { server } from '../../utils/Globals';
 
 interface Props extends Post {
   triggerHandler: () => void;
@@ -13,7 +14,7 @@ const DashboardPost: React.FC<Props> = (props) => {
   const navigate = useNavigate();
   const handleDelete = async () => {
     await axios
-      .delete(`http://localhost:3001/post/delete/${props._id}`, {
+      .delete(`${server}post/delete/${props._id}`, {
         withCredentials: true,
       })
       .catch((err) => {

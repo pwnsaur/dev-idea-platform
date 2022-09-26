@@ -2,6 +2,7 @@ import styles from './register.module.scss';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { server } from '../../utils/Globals';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -37,13 +38,9 @@ const Register = () => {
       email: user.email,
     };
     try {
-      const response = await axios.post(
-        'http://localhost:3001/auth/register',
-        data,
-        {
-          withCredentials: true,
-        },
-      );
+      const response = await axios.post(`${server}auth/register`, data, {
+        withCredentials: true,
+      });
       console.log(response);
       navigate('/login');
     } catch (error: any) {

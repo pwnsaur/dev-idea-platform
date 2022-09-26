@@ -2,6 +2,7 @@ import styles from './write.module.scss';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { server } from '../../utils/Globals';
 
 type Post = {
   title: string;
@@ -23,7 +24,7 @@ const Write = (props: Props) => {
       content,
     };
     try {
-      await axios.post('http://localhost:3001/post/create', post, {
+      await axios.post(`${server}post/create`, post, {
         withCredentials: true,
       });
     } catch {
