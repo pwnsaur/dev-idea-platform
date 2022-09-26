@@ -4,10 +4,12 @@ import axios from 'axios';
 import styles from './write.module.scss';
 import { server } from '../../utils/Globals';
 
+
 type Post = {
   title: string;
   content: string;
 };
+
 type Props = {
   triggerHandler: () => void;
 };
