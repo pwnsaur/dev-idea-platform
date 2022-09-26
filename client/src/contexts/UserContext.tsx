@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useMemo } from 'react';
 import { User } from '../interfaces/interfaces';
 
 type UsersContextObj = {
@@ -18,11 +18,15 @@ const UsersContextProvider: React.FC<Props> = (props) => {
   const findUserById = (id: string) => {
     return users.filter((user) => user._id === id)[0];
   };
-  const contextValue: UsersContextObj = {
-    items: users,
-    addUser: addUserHandler,
-    findUserById,
-  };
+  const contextValue = useMemo(
+    () => ({
+      items: users,
+      addUser: addUserHandler,
+      findUserById,
+    }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [users],
+  );
   return (
     <UsersContext.Provider value={contextValue}>
       {props.children}
