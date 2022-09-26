@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
-import styles from './post.module.scss';
 import { useContext } from 'react';
+import styles from './post.module.scss';
 import { UsersContext } from '../../contexts/UserContext';
 import { PostsContext } from '../../contexts/PostContext';
 

@@ -10,8 +10,6 @@ html {
   font-size: 100%;
 }
 
-// :root {}
-
 a {
   text-decoration: none;
 }
@@ -26,11 +24,6 @@ body {
 }
 
 .container {
-  // display: flex;
-  // flex-wrap: nowrap;
-  // flex-direction: row;
-  // height: 100vh;
-  // margin: 0 auto;
   display: flex;
   height: 100vh;
 }
@@ -41,11 +34,9 @@ body {
 .write {
   display: flex;
   flex-grow: 1;
-  // max-width: 800px;
   height: 100%;
   width: 100%;
   justify-content: center;
-  border: 1px solid grey;
 }
 
 .nav {
@@ -58,7 +49,7 @@ body {
   color: rgba(0, 0, 0, 0.85);
   cursor: pointer;
   display: inline-flex;
-  font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica,
+  font-family: system-ui, -apple-system, system-ui, 'Helvetica Neue', Helvetica,
     Arial, sans-serif;
   font-size: 16px;
   font-weight: 600;

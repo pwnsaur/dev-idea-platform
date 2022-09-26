@@ -1,12 +1,8 @@
 import { useContext } from 'react';
-import { UsersContext } from '../../contexts/UserContext';
 import { Link } from 'react-router-dom';
-import { Post } from '../../interfaces/interfaces';
 import styles from './postContainer.module.scss';
-
-// interface Props extends Post {
-//   children?: React.ReactNode;
-// }
+import { UsersContext } from '../../contexts/UserContext';
+import { Post } from '../../interfaces/interfaces';
 
 const PostContainer = (props: Post) => {
   const userCtx = useContext(UsersContext);

@@ -1,20 +1,16 @@
-import styles from './sidebar.module.scss';
 import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
-import { LoggedInContext } from '../../contexts/LoggedInContext';
 import axios from 'axios';
+import styles from './sidebar.module.scss';
+import { LoggedInContext } from '../../contexts/LoggedInContext';
+import { server } from '../../utils/Globals';
 
 const Navbar = () => {
   const loginCtx = useContext(LoggedInContext);
   const clickHandler = async () => {
-    const response = await axios.post(
-      'http://localhost:3001/auth/logout',
-      {},
-      { withCredentials: true },
-    );
+    await axios.post(`${server}auth/logout`, {}, { withCredentials: true });
     loginCtx!.setLoggedInStatus(false, '');
     localStorage.removeItem('login');
-    console.log(response);
   };
   const loggedIn = (
     <>

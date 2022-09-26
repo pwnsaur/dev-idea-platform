@@ -1,7 +1,8 @@
-import styles from './register.module.scss';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import styles from './register.module.scss';
+import { server } from '../../utils/Globals';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -13,8 +14,6 @@ const Register = () => {
     surname: '',
     email: '',
   });
-  // const [username, setUsername] = useState('');
-  // const [password, setPassword] = useState('');
 
   const handleOnChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -37,20 +36,16 @@ const Register = () => {
       email: user.email,
     };
     try {
-      const response = await axios.post(
-        'http://localhost:3001/auth/register',
-        data,
-        {
-          withCredentials: true,
-        },
-      );
-      console.log(response);
+      await axios.post(`${server}auth/register`, data, {
+        withCredentials: true,
+      });
+      console.log(data);
       navigate('/login');
     } catch (error: any) {
       console.log(error.response.data);
     }
   };
-  console.log(user);
+
   return (
     <section className={styles.register}>
       <form className={styles.form} onSubmit={handleSubmit}>

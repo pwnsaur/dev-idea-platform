@@ -1,10 +1,9 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './write.module.scss';
 import { useState, useContext } from 'react';
-import { PostsContext } from '../../contexts/PostContext';
 import { useNavigate, useParams } from 'react-router-dom';
-// import { useContext } from 'react';
 import axios from 'axios';
+import styles from './write.module.scss';
+import { PostsContext } from '../../contexts/PostContext';
+import { server } from '../../utils/Globals';
 
 type Post = {
   title: string;
@@ -25,13 +24,12 @@ const Edit = (props: Props) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(title);
     const post: Post = {
       title: title,
       content: content,
     };
     try {
-      await axios.put(`http://localhost:3001/post/update/${params.id}`, post, {
+      await axios.put(`${server}post/update/${params.id}`, post, {
         withCredentials: true,
       });
       setTitle('');
@@ -62,7 +60,11 @@ const Edit = (props: Props) => {
           className={styles.textPad}
           required
         ></textarea>
-        <input type="submit" value="Submit Changes" className={styles.submitBtn} />
+        <input
+          type="submit"
+          value="Submit Changes"
+          className={styles.submitBtn}
+        />
       </form>
     </div>
   );

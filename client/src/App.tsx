@@ -7,6 +7,7 @@ import { PostsContext } from './contexts/PostContext';
 import { UsersContext } from './contexts/UserContext';
 import ProtectedRoute from './utils/ProtectedRoutes';
 import { LoggedInContext } from './contexts/LoggedInContext';
+import { server } from './utils/Globals';
 
 const App = () => {
   const postsCtx = useContext(PostsContext);
@@ -19,8 +20,8 @@ const App = () => {
   };
 
   const getData = async () => {
-    const responseUsers = await axios.get('http://localhost:3001/user/get');
-    const responsePost = await axios.get('http://localhost:3001/post/get');
+    const responseUsers = await axios.get(`${server}user/get`);
+    const responsePost = await axios.get(`${server}post/get`);
     userCtx!.addUser(responseUsers.data);
 
     localStorage.setItem('users', JSON.stringify(responseUsers.data));
@@ -50,7 +51,7 @@ const App = () => {
   };
 
   const getChanges = async () => {
-    const response = await axios.get('http://localhost:3001/changes/get');
+    const response = await axios.get(`${server}changes/get`);
     return response.data.latestChanges;
   };
 
@@ -105,7 +106,7 @@ const App = () => {
               path="dashboard"
               element={
                 <ProtectedRoute user={loginCtx!.login.isLoggedIn}>
-                  <Pages.Dashboard />
+                  <Pages.Dashboard triggerHandler={handleTrigger} />
                 </ProtectedRoute>
               }
             />

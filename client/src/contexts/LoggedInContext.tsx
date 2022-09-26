@@ -1,5 +1,6 @@
 import { createContext, useState } from 'react';
 import { Login } from '../interfaces/interfaces';
+
 type LoggedInContextObj = {
   login: Login;
   setLoggedInStatus: (status: boolean, id: string, date?: Date) => void;
