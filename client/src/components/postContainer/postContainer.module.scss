@@ -1,13 +1,13 @@
 .postContainer {
-  width: 45vw;
+  width: 47vw;
   min-height: 22vh;
-  margin: 2vh auto;
-  padding: 10px;
+  margin: 3.5vh auto;
+  padding: 1.5vh 1.5vw;
   overflow: hidden;
-  background-color: rgb(250, 248, 248);
+  background-color: rgb(253, 251, 251);
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   border-radius: 10px;
-  transition: all 0.3s ease-in-out;
+  // transition: all 0.1s ease-in-out;
   &:hover {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
   }
@@ -16,22 +16,35 @@
 .author {
   font-weight: bold;
   float: left;
-  margin-left: 10px;
+  margin-left: 1vw;
+}
+
+.buttons {
+  margin-top: 2vh;
+  display: flex;
+  justify-content: space-around;
+}
+
+.buttonLeft {
+  margin-left: 10vw;
+}
+.buttonRight {
+  margin-right: 10vw;
 }
 
 .date {
   float: right;
-  margin-right: 10px;
+  margin-right: 1vw;
 }
 
 .header {
-  height: 10px;
-  margin: 10px 0;
+  height: 1vh;
+  margin: 1vw 0;
 }
 
 .title {
   margin-top: 2.5vh;
-  margin-bottom: 10px;
+  margin-bottom: 1vh;
   font-size: x-large;
 }
 
@@ -59,4 +72,16 @@
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+}
+
+@media screen and (max-width: 1024px) {
+  .postContainer {
+    width: 65vw;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .postContainer {
+    width: 80vw;
+  }
 }
