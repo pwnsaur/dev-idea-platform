@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as Pages from './pages/index';
 import * as Components from './components/index';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
@@ -87,13 +88,11 @@ const App = () => {
       checkChanges();
     }, FIVE_MINUTES_MS);
     return () => clearInterval(interval);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     checkLocalLogin();
     checkChanges();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [trigger]);
 
   return (
