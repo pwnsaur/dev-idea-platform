@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useContext } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import styles from './write.module.scss';
+import { PostsContext } from '../../contexts/PostContext';
 import { server } from '../../utils/Globals';
-
 
 type Post = {
   title: string;
@@ -14,33 +14,36 @@ type Props = {
   triggerHandler: () => void;
 };
 
-const Write = (props: Props) => {
+const Edit = (props: Props) => {
+  const postCtx = useContext(PostsContext);
+  const params = useParams();
+  const post = postCtx!.findPostById(String(params.id))[0];
   const navigate = useNavigate();
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState(post.title);
+  const [content, setContent] = useState(post.content);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const post: Post = {
-      title,
-      content,
+      title: title,
+      content: content,
     };
     try {
-      await axios.post(`${server}post/create`, post, {
+      await axios.put(`${server}post/update/${params.id}`, post, {
         withCredentials: true,
       });
-    } catch {
-      console.log('error');
+      setTitle('');
+      setContent('');
+      props.triggerHandler();
+      navigate('/dashboard');
+    } catch (error) {
+      console.log(error);
     }
-
-    setTitle('');
-    setContent('');
-    props.triggerHandler();
-    navigate('/');
   };
 
   return (
     <div className={styles.write}>
+      <h2>Write</h2>
       <form onSubmit={handleSubmit} className={styles.form}>
         <input
           onChange={(e) => setTitle(e.target.value)}
@@ -57,10 +60,14 @@ const Write = (props: Props) => {
           className={styles.textPad}
           required
         ></textarea>
-        <input type="submit" value="add post" className="nav" />
+        <input
+          type="submit"
+          value="Submit Changes"
+          className={styles.submitBtn}
+        />
       </form>
     </div>
   );
 };
 
-export default Write;
+export default Edit;

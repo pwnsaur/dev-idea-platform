@@ -53,19 +53,16 @@ h5 {
 }
 
 .formRow {
+  display: flex;
+  align-items: center;
   margin-bottom: 1rem;
 }
 
-.login {
+.register {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-}
-
-.register {
-  display: block;
-  margin-top: 1rem;
 }
 
 ::placeholder {

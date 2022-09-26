@@ -1,0 +1,50 @@
+.postContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 2rem;
+  overflow: scroll;
+}
+
+.post {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  height: 100%;
+  min-height: 200px;
+  // border: 1px solid grey;
+  margin: 10px auto;
+  padding: 2.5rem;
+  font-size: 1.2rem;
+}
+
+.author {
+  font-weight: bold;
+  float: left;
+  margin-left: 10px;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-self: center;
+}
+
+.date {
+  float: right;
+  margin-right: 10px;
+}
+
+.header {
+  // position: sticky;
+  height: 1.5rem;
+  margin: 10px 0;
+}
+
+.title {
+  font-size: 3rem;
+  margin-top: 3rem;
+  margin-bottom: 4rem;
+}

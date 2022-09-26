@@ -1,8 +1,9 @@
-import styles from './login.module.scss';
 import { useState, useContext } from 'react';
-import { LoggedInContext } from '../../contexts/LoggedInContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import axios from 'axios';
+import styles from './login.module.scss';
+import { LoggedInContext } from '../../contexts/LoggedInContext';
+import { server } from '../../utils/Globals';
 
 const Login = () => {
   const loginCtx = useContext(LoggedInContext);
@@ -19,14 +20,22 @@ const Login = () => {
       password: password,
     };
     try {
-      await axios.post('http://localhost:3001/auth/login', data, {
+      const response = await axios.post(`${server}auth/login`, data, {
         withCredentials: true,
       });
-      loginCtx!.setLoggedInStatus(true);
+      const newDate = new Date();
+      loginCtx!.setLoggedInStatus(true, response.data.id, newDate);
+      localStorage.setItem(
+        'login',
+        JSON.stringify({
+          isLoggedIn: true,
+          id: response.data.id,
+          loggedInAt: newDate,
+        }),
+      );
       navigate('/dashboard');
     } catch (error: any) {
       console.log(error.response.data);
-      loginCtx!.setLoggedInStatus(false);
     }
   };
 
@@ -57,6 +66,9 @@ const Login = () => {
         <button type="submit" className={`${styles.btn} ${styles.btnBlock}`}>
           login
         </button>
+        <NavLink className={styles.register} to="/register">
+          Register
+        </NavLink>
       </form>
     </section>
   );

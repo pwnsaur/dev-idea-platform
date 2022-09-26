@@ -1,21 +1,25 @@
 import { createContext, useState } from 'react';
+import { Login } from '../interfaces/interfaces';
 
 type LoggedInContextObj = {
-  isLoggedIn: boolean;
-  setLoggedInStatus: (status: boolean) => void;
+  login: Login;
+  setLoggedInStatus: (status: boolean, id: string, date?: Date) => void;
 };
 
 export const LoggedInContext = createContext<LoggedInContextObj | null>(null);
 type Props = { children: React.ReactNode };
 const LoggedInContextProvider: React.FC<Props> = (props) => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-
-  const setLoggedInStatus = (status: boolean) => {
-    setIsLoggedIn(status);
+  const [login, setLogin] = useState<Login>({
+    isLoggedIn: false,
+    id: '',
+    loggedInAt: new Date(),
+  });
+  const setLoggedInStatus = (status: boolean, id: string, date?: Date) => {
+    setLogin({ isLoggedIn: status, id: id, loggedInAt: date || new Date() });
   };
 
   const contextValue: LoggedInContextObj = {
-    isLoggedIn,
+    login,
     setLoggedInStatus,
   };
   return (

@@ -1,29 +1,50 @@
-import styles from './sidebar.module.scss';
 import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
-import { LoggedInContext } from '../../contexts/LoggedInContext';
-import Button from '../reusableComponents/Button';
 import axios from 'axios';
+import styles from './sidebar.module.scss';
+import { LoggedInContext } from '../../contexts/LoggedInContext';
+import { server } from '../../utils/Globals';
+import Footer from '../footer/Footer';
 
 const Navbar = () => {
   const loginCtx = useContext(LoggedInContext);
   const clickHandler = async () => {
-    const response = await axios.post(
-      'http://localhost:3001/auth/logout',
-      {},
-      { withCredentials: true },
-    );
-    loginCtx!.setLoggedInStatus(false);
-    console.log(response);
+    await axios.post(`${server}auth/logout`, {}, { withCredentials: true });
+    loginCtx!.setLoggedInStatus(false, '');
+    localStorage.removeItem('login');
   };
+  const loggedIn = (
+    <>
+      <NavLink className="nav" to="/dashboard">
+        Dashboard
+      </NavLink>
+      <NavLink className="nav" to="/write">
+        Write
+      </NavLink>
+      <button className="nav" onClick={clickHandler}>
+        Logout
+      </button>
+    </>
+  );
+
   return (
     <nav className={styles.sidebar}>
-      <NavLink to="/">Home</NavLink>
-      <NavLink to="/dashboard">Dashboard</NavLink>
-      <NavLink to="/write">Write</NavLink>
-      {!loginCtx!.isLoggedIn && <NavLink to="/login">Login</NavLink>}
-      {loginCtx!.isLoggedIn && <button onClick={clickHandler}>Logout</button>}
-      <Button text="Click" />
+      <h1 className={styles.title}>CODEBRAH</h1>
+      <p className={styles.subtitle}>
+        share ideas <br />
+        with your bros
+      </p>
+      <NavLink className="nav" to="/">
+        Home
+      </NavLink>
+
+      {loginCtx!.login.isLoggedIn && loggedIn}
+      {!loginCtx!.login.isLoggedIn && (
+        <NavLink className="nav" to="/login">
+          Login
+        </NavLink>
+      )}
+      <Footer />
     </nav>
   );
 };
