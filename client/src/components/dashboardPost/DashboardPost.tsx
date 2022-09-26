@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import styles from './postContainer.module.scss';
+import styles from '../postContainer/postContainer.module.scss';
 import { Post } from '../../interfaces/interfaces';
 import { server } from '../../utils/Globals';
 
