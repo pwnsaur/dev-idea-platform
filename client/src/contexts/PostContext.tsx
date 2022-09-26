@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useMemo } from 'react';
 import { Post } from '../interfaces/interfaces';
 
 type PostsContextObj = {
@@ -23,11 +23,15 @@ const PostsContextProvider: React.FC<Props> = (props) => {
       return posts.filter((post) => id.includes(post._id));
     }
   };
-  const contextValue: PostsContextObj = {
-    items: posts,
-    addPost: addPostHandler,
-    findPostById,
-  };
+  const contextValue = useMemo(
+    () => ({
+      items: posts,
+      addPost: addPostHandler,
+      findPostById,
+    }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [posts],
+  );
   return (
     <PostsContext.Provider value={contextValue}>
       {props.children}
