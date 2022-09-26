@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import { useContext } from 'react';
 import { PostsContext } from '../../contexts/PostContext';
 import styles from './postWindow.module.scss';
@@ -9,8 +7,6 @@ const PostWindow = () => {
   const postCtx = useContext(PostsContext);
   return (
     <div className={styles.postWindow}>
-      <div>post window</div>
-
       {postCtx!.items.length > 0 ? (
         postCtx!.items.map((post, index) => (
           <PostContainer

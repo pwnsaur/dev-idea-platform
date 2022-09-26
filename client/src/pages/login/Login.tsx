@@ -1,8 +1,8 @@
-import styles from './login.module.scss';
 import { useState, useContext } from 'react';
-import { LoggedInContext } from '../../contexts/LoggedInContext';
 import { useNavigate, NavLink } from 'react-router-dom';
 import axios from 'axios';
+import styles from './login.module.scss';
+import { LoggedInContext } from '../../contexts/LoggedInContext';
 import { server } from '../../utils/Globals';
 
 const Login = () => {

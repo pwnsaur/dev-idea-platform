@@ -1,7 +1,7 @@
-import styles from './write.module.scss';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import styles from './write.module.scss';
 import { server } from '../../utils/Globals';
 
 type Post = {
@@ -39,7 +39,6 @@ const Write = (props: Props) => {
 
   return (
     <div className={styles.write}>
-      <h2>Write</h2>
       <form onSubmit={handleSubmit} className={styles.form}>
         <input
           onChange={(e) => setTitle(e.target.value)}

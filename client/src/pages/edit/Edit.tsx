@@ -1,10 +1,8 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './write.module.scss';
 import { useState, useContext } from 'react';
-import { PostsContext } from '../../contexts/PostContext';
 import { useNavigate, useParams } from 'react-router-dom';
-// import { useContext } from 'react';
 import axios from 'axios';
+import styles from './write.module.scss';
+import { PostsContext } from '../../contexts/PostContext';
 import { server } from '../../utils/Globals';
 
 type Post = {

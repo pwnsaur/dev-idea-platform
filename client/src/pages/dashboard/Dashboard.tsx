@@ -1,9 +1,7 @@
 import { useContext } from 'react';
+import styles from './dashboard.module.scss';
 import { UsersContext } from '../../contexts/UserContext';
 import { PostsContext } from '../../contexts/PostContext';
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './dashboard.module.scss';
 import DashboardPost from '../../components/dashboardPost/DashboardPost';
 
 interface Props {
@@ -39,7 +37,6 @@ const Dashboard: React.FC<Props> = (props) => {
   return (
     <div className={styles.dashboard}>
       <section className="section">
-        <h2>Dashboard</h2>
         <div className={styles.container}>
           {posts.length !== 0 ? jsxPosts : <h1>You don't have any posts</h1>}
         </div>

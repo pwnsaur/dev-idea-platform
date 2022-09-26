@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { Post } from '../../interfaces/interfaces';
 import { useNavigate } from 'react-router-dom';
-import styles from './postContainer.module.scss';
 import axios from 'axios';
+import styles from './postContainer.module.scss';
+import { Post } from '../../interfaces/interfaces';
 import { server } from '../../utils/Globals';
 
 interface Props extends Post {
@@ -10,7 +10,6 @@ interface Props extends Post {
 }
 
 const DashboardPost: React.FC<Props> = (props) => {
-  console.log({ props });
   const navigate = useNavigate();
   const handleDelete = async () => {
     await axios
