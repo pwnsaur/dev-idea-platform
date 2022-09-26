@@ -25,7 +25,6 @@ const Login = () => {
       });
       const newDate = new Date();
       loginCtx!.setLoggedInStatus(true, response.data.id, newDate);
-      console.log(loginCtx!.login);
       localStorage.setItem(
         'login',
         JSON.stringify({
@@ -37,7 +36,6 @@ const Login = () => {
       navigate('/dashboard');
     } catch (error: any) {
       console.log(error.response.data);
-      // loginCtx!.setLoggedInStatus(false, '');
     }
   };
 

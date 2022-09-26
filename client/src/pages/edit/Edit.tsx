@@ -24,7 +24,6 @@ const Edit = (props: Props) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(title);
     const post: Post = {
       title: title,
       content: content,

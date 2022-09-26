@@ -32,8 +32,8 @@ const Dashboard: React.FC<Props> = (props) => {
         />
       );
     });
-    console.log(jsxPosts);
   }
+
   return (
     <div className={styles.dashboard}>
       <section className="section">
