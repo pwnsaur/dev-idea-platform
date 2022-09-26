@@ -2,7 +2,6 @@ import { useContext, useState } from 'react';
 import { PostsContext } from '../../contexts/PostContext';
 import styles from './postWindow.module.scss';
 import PostContainer from '../postContainer/PostContainer';
-import { JsxElement } from 'typescript';
 
 const PostWindow = () => {
   const [parsedPosts, setParsedPosts] = useState(2);
