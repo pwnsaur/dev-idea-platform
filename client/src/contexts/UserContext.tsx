@@ -4,7 +4,7 @@ import { User } from '../interfaces/interfaces';
 type UsersContextObj = {
   items: User[];
   addUser: (users: User[]) => void;
-  findUserById:(id:string) => User;
+  findUserById: (id: string) => User;
 };
 
 export const UsersContext = createContext<UsersContextObj | null>(null);
@@ -13,9 +13,7 @@ const UsersContextProvider: React.FC<Props> = (props) => {
   const [users, setUsers] = useState<User[]>([]);
   const addUserHandler = (users: User[]) => {
     const newUsers: User[] = users;
-    setUsers((prevUsers) => {
-      return (prevUsers = [...prevUsers, ...newUsers]);
-    });
+    setUsers(newUsers);
   };
   const findUserById = (id: string) => {
     return users.filter((user) => user._id === id)[0];
@@ -23,7 +21,7 @@ const UsersContextProvider: React.FC<Props> = (props) => {
   const contextValue: UsersContextObj = {
     items: users,
     addUser: addUserHandler,
-    findUserById
+    findUserById,
   };
   return (
     <UsersContext.Provider value={contextValue}>
