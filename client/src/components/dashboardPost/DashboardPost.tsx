@@ -1,8 +1,28 @@
 import { Link } from 'react-router-dom';
 import { Post } from '../../interfaces/interfaces';
+import { useNavigate } from 'react-router-dom';
 import styles from './postContainer.module.scss';
+import axios from 'axios';
 
-const DashboardPost = (props: Post) => {
+interface Props extends Post {
+  triggerHandler: () => void;
+}
+
+const DashboardPost: React.FC<Props> = (props) => {
+  console.log({ props });
+  const navigate = useNavigate();
+  const handleDelete = async () => {
+    await axios
+      .delete(`http://localhost:3001/post/delete/${props._id}`, {
+        withCredentials: true,
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    props.triggerHandler();
+    navigate('/dashboard');
+  };
+
   return (
     <div className={styles.postContainer}>
       <div className={styles.header}>
@@ -15,6 +35,9 @@ const DashboardPost = (props: Post) => {
       <Link className="nav" to={`/edit/${props._id}`}>
         Edit
       </Link>
+      <button className="nav" onClick={handleDelete}>
+        Delete
+      </button>
     </div>
   );
 };

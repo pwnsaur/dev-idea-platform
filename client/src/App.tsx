@@ -105,7 +105,7 @@ const App = () => {
               path="dashboard"
               element={
                 <ProtectedRoute user={loginCtx!.login.isLoggedIn}>
-                  <Pages.Dashboard />
+                  <Pages.Dashboard triggerHandler={handleTrigger} />
                 </ProtectedRoute>
               }
             />

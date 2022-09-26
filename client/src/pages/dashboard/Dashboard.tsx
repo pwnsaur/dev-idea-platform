@@ -6,7 +6,11 @@ import { PostsContext } from '../../contexts/PostContext';
 import styles from './dashboard.module.scss';
 import DashboardPost from '../../components/dashboardPost/DashboardPost';
 
-const Dashboard = () => {
+interface Props {
+  triggerHandler: () => void;
+}
+
+const Dashboard: React.FC<Props> = (props) => {
   const userCtx = useContext(UsersContext);
   const postsCtx = useContext(PostsContext);
 
@@ -26,6 +30,7 @@ const Dashboard = () => {
           content={post.content}
           author={post.author}
           createdAt={post.createdAt}
+          triggerHandler={props.triggerHandler}
         />
       );
     });
